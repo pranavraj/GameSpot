@@ -3,3 +3,6 @@ flask-bootstrap
 Flask-WTF
 email_validator
 flask-login
+flask-dance
+pymongo
+python-dotenv

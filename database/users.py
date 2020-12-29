@@ -19,3 +19,4 @@ def add_user_if_not_present(profile):
                 "shardKey": profile_type
             }
         )
+
