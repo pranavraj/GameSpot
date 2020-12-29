@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+{% if leagueStandings %}
+    <h1> League Standings </h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th> League </th>
+                <th> Games won </th>
+                <th> Games lost </th>
+                <th> Next game on </th>
+            </tr>
+        </thead>
+        {% for league in leagueStandings %}
+            <tr>
+                <td> {{ league.name }} </td>
+                <td> {{ league.wins }} </td>
+                <td> {{ league.losses }} </td>
+                <td> {{ league.nextGameOn }} </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+{% endblock %}
