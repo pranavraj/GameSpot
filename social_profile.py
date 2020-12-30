@@ -13,11 +13,12 @@ class SocialProfile(metaclass=abc.ABCMeta):
     Base abstract class for social profile classes
     """
 
-    def __init__(self, profile_type):
+    def __init__(self, profile_type, authorization_url):
         self.name = None
         self.image = None
         self.email = None
         self.profile_type = profile_type
+        self.authorization_url = authorization_url
 
     @abc.abstractmethod
     def register(self, registration_api_response):
@@ -45,13 +46,6 @@ class SocialProfile(metaclass=abc.ABCMeta):
     def is_authorized(self):
         """
         Is authorized to access the social profile
-        """
-        pass
-
-    @abc.abstractmethod
-    def get_authorization_url(self):
-        """
-        Authorization url
         """
         pass
 
@@ -108,7 +102,7 @@ class GoogleProfile(SocialProfile):
     """
 
     def __init__(self):
-        SocialProfile.__init__(self, "Google")
+        SocialProfile.__init__(self, "Google", "google.login")
 
     def register(self, registration_api_response):
 
@@ -131,9 +125,6 @@ class GoogleProfile(SocialProfile):
 
     def is_authorized(self):
         return google.authorized
-
-    def get_authorization_url(self):
-        return "google.login"
 
     def login(self):
         resp = google.get("/oauth2/v1/userinfo").json()

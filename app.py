@@ -35,14 +35,14 @@ def login(profile_type):
     profile = SocialProfile.get_matching_profile(profile_type)
 
     if not profile.is_authorized():
-        return redirect(url_for(profile.get_authorization_url()))
+        return redirect(url_for(profile.authorization_url))
 
     # to catch the issue mentioned here:
     # https://github.com/singingwolfboy/flask-dance/issues/35
     try:
         profile.login()
     except (InvalidGrantError, TokenExpiredError):
-        return redirect(url_for(profile.get_authorization_url()))
+        return redirect(url_for(profile.authorization_url))
 
     return redirect(url_for("index"))
 
