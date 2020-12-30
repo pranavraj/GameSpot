@@ -35,8 +35,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             
-                            {% for profile in allowed_profiles %}
-                                <li><a href='{{ url_for("login",profileObject = profile) }}'>{{ profile.get_display_name() }}</a></li>
+                            {% for allowed_profile in allowed_profiles %}
+                                <li><a href='{{ url_for("login",profile_type = allowed_profile.profile_type) }}'>{{ allowed_profile.profile_type }}</a></li>
                             {% endfor %}
                         </ul>
 
