@@ -1,0 +1,66 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    Game Spot
+{% endblock %}
+
+{% block navbar %}
+
+<div class="navbar navbar-inverse" role="navigation" style="height: fit-content;" >
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="font-size:50px;text-align:left;margin-top:10px;margin-bottom:10px;" >Game Spot</a>
+        </div>
+        <div class="navbar-collapse collapse">
+                        
+            <ul class="nav navbar-nav navbar-right" style="vertical-align: ;">
+                <li class="dropdown" >
+                    
+                    {% if logged_in_user_name %}
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ logged_in_user_image }}" style="width:50px;height:50px;border-radius:50%" >
+                            {{ logged_in_user_name }} <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href='{{ url_for("logout") }}'>Logout</a></li>
+                            <li><a href="#">Profile</a></li>
+                        </ul>
+
+
+                    {% else %}
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Login <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            
+                            {% for allowed_profile in allowed_profiles %}
+                                <li><a href='{{ url_for("login",profile_type = allowed_profile.profile_type) }}'>{{ allowed_profile.profile_type }}</a></li>
+                            {% endfor %}
+                        </ul>
+
+                    {% endif %}
+
+                </li>                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}

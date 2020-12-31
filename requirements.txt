@@ -1,0 +1,9 @@
+Flask>=1.0,<=1.1.2
+flask-bootstrap
+Flask-WTF
+email_validator
+flask-login
+flask-dance
+flask-mongoengine
+pymongo
+python-dotenv
