@@ -2,9 +2,6 @@ import datetime
 import os
 from mongoengine import *
 
-uri = os.environ["DATABASE_CONNECTION_STRING"]
-connect()
-
 
 
 #todo define class objects for these collections

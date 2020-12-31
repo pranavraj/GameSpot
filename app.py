@@ -7,7 +7,6 @@ from flask import Flask, redirect, url_for, render_template, session, flash
 from flask_bootstrap import Bootstrap
 from oauthlib.oauth2 import TokenExpiredError, InvalidGrantError
 from dotenv import load_dotenv
-from flask_mongoengine import MongoEngine
 
 from social_profile import ALLOWED_SOCIAL_PROFILES, SocialProfile
 
@@ -15,14 +14,6 @@ load_dotenv("verbose=True")
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "supersekrit")
-
-app.config["MONGODB_HOST"] = 'game-spot.mongo.cosmos.azure.com'
-app.config["MONGODB_PORT"] = 10255
-app.config["MONGODB_DATABASE"] = 'GameSpot'
-app.config["MONGODB_USERNAME"] = 'game-spot'
-app.config["MONGODB_PASSWORD"] = 'zgbKaOx61vlWFwujG0zL0TJfnHFdn1dpQlrD0x9fbLQtHHSFyvfk4QRboAxEfx6nYD3TD73ndG66N1dNKOdL9w=='
-
-db = MongoEngine(app)
 
 for allowed_profile in ALLOWED_SOCIAL_PROFILES:
     allowed_profile.register_app(app)
@@ -52,8 +43,6 @@ def login(profile_type):
         profile.login()
     except (InvalidGrantError, TokenExpiredError):
         return redirect(url_for(profile.authorization_url))
-
-    #User(name="test1", email="pranav090333333@").save_if_not_present()
 
     return redirect(url_for("index"))
 
@@ -93,5 +82,3 @@ def index():
         leagues_hosted_by_user = leagues_hosted_by_user,
         allowed_profiles = ALLOWED_SOCIAL_PROFILES
     )
-
-from models import User, Game, League
