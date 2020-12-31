@@ -6,7 +6,6 @@ import os
 import abc
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask import session, flash
-from database import users
 
 class SocialProfile(metaclass=abc.ABCMeta):
     """
@@ -71,7 +70,6 @@ class SocialProfile(metaclass=abc.ABCMeta):
         session["profile_type"] = self.profile_type
         session_profile = SocialProfile.get_matching_profile(self.profile_type)
         session_profile.register(profile_info)
-        users.add_user_if_not_present(session_profile)
 
     @staticmethod
     def get_matching_profile(profile_type):
