@@ -57,7 +57,6 @@ def logout():
     return redirect(url_for("index"))
 
 
-
 @app.route("/home")
 @app.route("/")
 def index():
